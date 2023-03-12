@@ -1,5 +1,4 @@
-﻿using CodeSnippets.Repository;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeSnippets.Test.Repository
+namespace CodeSnippets.Repository.Test
 {
     public class Customer
     {
@@ -65,7 +64,7 @@ namespace CodeSnippets.Test.Repository
     }
 
     [TestClass]
-    public class RepositoryTests
+    public class RepositoryTest
     {
         private TestDbContext _context;
         private IRepository<Customer> _customerRepository;

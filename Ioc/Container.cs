@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeSnippets.Ioc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,14 +8,6 @@ using System.Threading.Tasks;
 
 namespace CodeSnipets.Ioc
 {
-    public interface IContainer
-    {
-        void Register<TFrom, TTo>() where TTo : TFrom;
-        void RegisterInstance<T>(T instance);
-        void RegisterSingleton<TFrom, TTo>() where TTo : TFrom, new();
-        T Resolve<T>();
-    }
-
     public class Container : IContainer
     {
         private readonly Dictionary<Type, Func<object>> _registeredTypes = new Dictionary<Type, Func<object>>();

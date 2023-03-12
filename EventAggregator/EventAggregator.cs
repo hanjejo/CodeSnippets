@@ -7,13 +7,6 @@ using System.Threading.Tasks;
 
 namespace CodeSnippets.EventAggregator
 {
-    public interface IEventAggregator
-    {
-        void Publish<TEvent>(TEvent @event) where TEvent : IEvent;
-        void Subscribe<TEvent>(IEventHandler<TEvent> handler) where TEvent : IEvent;
-        void Unsubscribe<TEvent>(IEventHandler<TEvent> handler) where TEvent : IEvent;
-    }
-
     public class EventAggregator : IEventAggregator
     {
         private readonly Dictionary<Type, List<object>> _handlers = new Dictionary<Type, List<object>>();

@@ -1,4 +1,4 @@
-﻿using CodeSnippets.Test.Repository;
+﻿using CodeSnippets.Repository.Test;
 using CodeSnippets.UnitOfWork;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -9,7 +9,7 @@ using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeSnippets.Test.UnitOfWork
+namespace CodeSnippets.UnitOfWork.Test
 {
     [TestClass]
     public class UnitOfWorkTests
