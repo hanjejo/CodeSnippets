@@ -61,8 +61,8 @@ namespace CodeSnippets.Test.UnitOfWork
 
             // Act
             repo.Add(customer);
-            _unitOfWork.CommitTransaction();
             await _unitOfWork.SaveChangesAsync();
+            _unitOfWork.CommitTransaction();
             var afterCount_context = repo.Count();
 
             // Assert
@@ -81,9 +81,9 @@ namespace CodeSnippets.Test.UnitOfWork
 
             // Act
             repo.Add(customer);
+            await _unitOfWork.SaveChangesAsync();
             _unitOfWork.RollbackTransaction();
-            // await _unitOfWork.SaveChangesAsync();
-            var afterCount= repo.Count();
+            var afterCount = repo.Count();
 
             // Assert
             Assert.AreEqual(beforeCount, afterCount);
