@@ -9,45 +9,57 @@ using System.Threading.Tasks;
 namespace CodeSnippets.Mapper
 {
     public class PropertyMapper<TSource, TDestination>
+    where TDestination : new()
     {
-        private readonly Dictionary<string, string> _propertyMap = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _propertyMap;
+        private readonly Func<MemberExpression, string> _getPropertyName;
 
-        public PropertyMapper<TSource, TDestination> CreateMap(string sourcePropertyName, string targetPropertyName)
+        public PropertyMapper()
         {
-            _propertyMap.Add(sourcePropertyName, targetPropertyName);
-            return this;
+            _propertyMap = new Dictionary<string, string>();
+            _getPropertyName = GetPropertyName;
+        }
+
+        public void AddPropertyMap<TProperty>(
+            Expression<Func<TSource, TProperty>> sourceProperty,
+            Expression<Func<TDestination, TProperty>> destinationProperty)
+        {
+            var sourcePropertyName = _getPropertyName(sourceProperty.Body as MemberExpression);
+            var destinationPropertyName = _getPropertyName(destinationProperty.Body as MemberExpression);
+            _propertyMap[sourcePropertyName] = destinationPropertyName;
+        }
+
+        private string GetPropertyName(MemberExpression memberExpression)
+        {
+            if (memberExpression == null)
+            {
+                throw new ArgumentException("The property expression must be a member access expression.");
+            }
+
+            return memberExpression.Member.Name;
         }
 
         public TDestination Map(TSource source)
         {
-            var target = Activator.CreateInstance<TDestination>();
+            TDestination destination = new TDestination();
+            Type destinationType = typeof(TDestination);
 
-            var sourceProperties = typeof(TSource).GetProperties();
-            var targetProperties = typeof(TDestination).GetProperties();
-
-            foreach (var sourceProperty in sourceProperties)
+            foreach (var sourceProperty in typeof(TSource).GetProperties())
             {
-                if (_propertyMap.TryGetValue(sourceProperty.Name, out var targetPropertyName))
+                string destinationPropertyName;
+                if (!_propertyMap.TryGetValue(sourceProperty.Name, out destinationPropertyName))
                 {
-                    var targetProperty = targetProperties.FirstOrDefault(p => p.Name == targetPropertyName);
-                    if (targetProperty != null && targetProperty.CanWrite)
-                    {
-                        var value = sourceProperty.GetValue(source);
-                        targetProperty.SetValue(target, value);
-                    }
+                    destinationPropertyName = sourceProperty.Name;
                 }
-                else
+
+                var destinationProperty = destinationType.GetProperty(destinationPropertyName);
+                if (destinationProperty != null && destinationProperty.CanWrite)
                 {
-                    var targetProperty = targetProperties.FirstOrDefault(p => p.Name == sourceProperty.Name);
-                    if (targetProperty != null && targetProperty.CanWrite)
-                    {
-                        var value = sourceProperty.GetValue(source);
-                        targetProperty.SetValue(target, value);
-                    }
+                    destinationProperty.SetValue(destination, sourceProperty.GetValue(source, null), null);
                 }
             }
 
-            return target;
+            return destination;
         }
     }
 }

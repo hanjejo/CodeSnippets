@@ -13,46 +13,69 @@ namespace CodeSnippets.Mapper.Test
     public class PropertyMapperTests
     {
         [TestMethod]
-        public void Map_ShouldMapProperties_WhenPropertyNamesAreTheSame()
+        public void Map_ShouldMapPropertiesCorrectly()
         {
             // Arrange
-            var mapper = new PropertyMapper<Source, Target>();
-            var source = new Source { Id = 1, Name = "John" };
+            var person = new Person { FirstName = "John", LastName = "Doe", Age = 30 };
+            var mapper = new PropertyMapper<Person, PersonDto>();
+            mapper.AddPropertyMap(p => p.FirstName, d => d.First);
+            mapper.AddPropertyMap(p => p.LastName, d => d.Last);
 
             // Act
-            var target = mapper.Map(source);
+            var personDto = mapper.Map(person);
 
             // Assert
-            Assert.AreEqual(source.Id, target.Id);
-            Assert.AreNotEqual(source.Name, target.FullName);
+            Assert.AreEqual("John", personDto.First);
+            Assert.AreEqual("Doe", personDto.Last);
+            Assert.AreEqual(30, personDto.Age);
         }
 
         [TestMethod]
-        public void Map_ShouldMapProperties_WhenPropertyNamesAreDifferent()
+        public void Map_ShouldMapPropertiesUsingDefaultMappings()
         {
             // Arrange
-            var mapper = new PropertyMapper<Source, Target>();
-            mapper.CreateMap("Name", "FullName");
-            var source = new Source { Id = 1, Name = "John" };
+            var person = new Person { FirstName = "John", LastName = "Doe", Age = 30 };
+            var mapper = new PropertyMapper<Person, PersonDto>();
 
             // Act
-            var target = mapper.Map(source);
+            var personDto = mapper.Map(person);
 
             // Assert
-            Assert.AreEqual(source.Id, target.Id);
-            Assert.AreEqual(source.Name, target.FullName);
+            Assert.AreNotEqual("John", personDto.First);
+            Assert.AreNotEqual("Doe", personDto.Last);
+            Assert.AreEqual(30, personDto.Age);
+        }
+
+        [TestMethod]
+        public void Map_ShouldIgnorePropertiesThatDoNotHaveMappings()
+        {
+            // Arrange
+            var person = new Person { FirstName = "John", LastName = "Doe", Age = 30 };
+            var mapper = new PropertyMapper<Person, PersonDto>();
+            mapper.AddPropertyMap(p => p.FirstName, d => d.First);
+
+            // Act
+            var personDto = mapper.Map(person);
+
+            // Assert
+            Assert.AreEqual("John", personDto.First);
+            Assert.IsNull(personDto.Last);
+            Assert.AreEqual(30, personDto.Age);
         }
     }
 
-    public class Source
+    public class Person
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int Age { get; set; }
     }
 
-    public class Target
+    public class PersonDto
     {
-        public int Id { get; set; }
-        public string FullName { get; set; }
+        public string First { get; set; }
+        public string Last { get; set; }
+        public int Age { get; set; }
     }
+
 }
