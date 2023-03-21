@@ -9,68 +9,50 @@ using System.Threading.Tasks;
 
 namespace CodeSnippets.Mapper.Test
 {
-
-    // 테스트 클래스
     [TestClass]
-    public class PropertyMapperTest
+    public class PropertyMapperTests
     {
         [TestMethod]
-        public void TestPropertyMap()
+        public void Map_ShouldMapProperties_WhenPropertyNamesAreTheSame()
         {
             // Arrange
-            var map = new PropertyMap<Person, PersonDto>(p => p.Name, dto => dto.FullName);
+            var mapper = new PropertyMapper<Source, Target>();
+            var source = new Source { Id = 1, Name = "John" };
 
             // Act
-            var sourceProperty = map.SourceProperty;
-            var destinationProperty = map.DestinationProperty;
+            var target = mapper.Map(source);
 
             // Assert
-            Assert.AreEqual("Name", ((MemberExpression)sourceProperty.Body).Member.Name);
-            Assert.AreEqual("FullName", ((MemberExpression)destinationProperty.Body).Member.Name);
+            Assert.AreEqual(source.Id, target.Id);
+            Assert.AreNotEqual(source.Name, target.FullName);
         }
 
         [TestMethod]
-        public void TestMapper()
+        public void Map_ShouldMapProperties_WhenPropertyNamesAreDifferent()
         {
             // Arrange
-            var mapper = new Mapper<Person, PersonDto>();
-            mapper.AddMap(new PropertyMap<Person, PersonDto>(p => p.Name, dto => dto.FullName));
-
-            var person = new Person
-            {
-                Name = "John Smith",
-                Age = 30,
-                Address = "123 Main St",
-                City = "Anytown",
-                State = "CA",
-                ZipCode = "12345"
-            };
+            var mapper = new PropertyMapper<Source, Target>();
+            mapper.CreateMap("Name", "FullName");
+            var source = new Source { Id = 1, Name = "John" };
 
             // Act
-            var personDto = mapper.Map(person);
+            var target = mapper.Map(source);
 
             // Assert
-            Assert.AreEqual(person.Name, personDto.FullName);
+            Assert.AreEqual(source.Id, target.Id);
+            Assert.AreEqual(source.Name, target.FullName);
         }
+    }
 
-        private class Person
-        {
-            public string Name { get; set; }
-            public int Age { get; set; }
-            public string Address { get; set; }
-            public string City { get; set; }
-            public string State { get; set; }
-            public string ZipCode { get; set; }
-        }
+    public class Source
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
 
-        private class PersonDto
-        {
-            public string FullName { get; set; }
-            public int Age { get; set; }
-            public string Address { get; set; }
-            public string City { get; set; }
-            public string State { get; set; }
-            public string ZipCode { get; set; }
-        }
+    public class Target
+    {
+        public int Id { get; set; }
+        public string FullName { get; set; }
     }
 }
