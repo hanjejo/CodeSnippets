@@ -1,97 +1,65 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CodeSnippets.EventAggregator;
+using CodeSnippets.EventAggregator.Test;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeSnippets.EventAggregator.Test
+namespace CodeSnippets.Test.EventAggregator
 {
     [TestClass]
-    public class EventAggregatorTests
+    public class EventAggregatorTest
     {
-        private EventAggregator _aggregator;
-        private FakeHandlerA _handlerA;
-        private FakeHandlerB _handlerB;
-
-        [TestInitialize]
-        public void Initialize()
-        {
-            _aggregator = new EventAggregator();
-            _handlerA = new FakeHandlerA();
-            _handlerB = new FakeHandlerB();
-        }
-
         [TestMethod]
-        public void Publish_ShouldCallEventHandler()
+        public void Test()
         {
-            // Given
-            var payload = new FakeEvent();
 
-            _aggregator.Subscribe(_handlerA);
-            _aggregator.Subscribe(_handlerB);
-
-            // When
-            _aggregator.Publish(payload);
-
-            // Then
-            Assert.AreEqual(1, _handlerA.HandledEvents.Count);
-            Assert.AreEqual(payload, _handlerA.HandledEvents[0]);
-
-            Assert.AreEqual(1, _handlerB.HandledEvents.Count);
-            Assert.AreEqual(payload, _handlerB.HandledEvents[0]);
-        }
-
-        [TestMethod]
-        public void Subscribe_ShouldAddEventHandler()
-        {
-            // Given
-            _aggregator.Subscribe(_handlerA);
-
-            // When
-            _aggregator.Publish(new FakeEvent());
-
-            // Then
-            Assert.AreEqual(1, _handlerA.HandledEvents.Count);
-        }
-
-        [TestMethod]
-        public void Unsubscribe_ShouldRemoveEventHandler()
-        {
-            // Given
-            _aggregator.Subscribe(_handlerA);
-            _aggregator.Subscribe(_handlerB);
-
-            // When
-            _aggregator.Unsubscribe(_handlerA);
-            _aggregator.Publish(new FakeEvent());
-
-            // Then
-            Assert.AreEqual(0, _handlerA.HandledEvents.Count);
-
-            Assert.AreEqual(1, _handlerB.HandledEvents.Count);
         }
     }
 
-    public class FakeEvent : IEvent { }
-
-    public class FakeHandlerA : IEventHandler<FakeEvent>
+    public class UserService  // 유저 관리 서비스
     {
-        public List<FakeEvent> HandledEvents { get; } = new List<FakeEvent>();
-
-        public void Handle(FakeEvent payload)
+        public void Create(User user)
         {
-            HandledEvents.Add(payload);
+            // 유저 생성 로직
+        }
+
+        public void Delete(User user)
+        {
+            // 유저 삭제 로직
         }
     }
 
-    public class FakeHandlerB : IEventHandler<FakeEvent>
+    public class User
     {
-        public List<FakeEvent> HandledEvents { get; } = new List<FakeEvent>();
+        public string Name { get; set; }
+    }
 
-        public void Handle(FakeEvent payload)
+
+    public class LoggerCommandHandler : IEventHandler<UserCreated>, IEventHandler<UserDeleted>
+    {
+        Logger logger = new Logger();
+
+        public void Handle(UserCreated payload)
         {
-            HandledEvents.Add(payload);
+            logger.Add(new LogItem()
+            {
+                Time = DateTime.Now,
+                Type = "Warning",
+                Message = payload.Name
+            });
+        }
+
+        public void Handle(UserDeleted payload)
+        {
+            logger.Add(new LogItem()
+            {
+                Time = DateTime.Now,
+                Type = "Warning",
+                Message = payload.Name
+            });
         }
     }
 }

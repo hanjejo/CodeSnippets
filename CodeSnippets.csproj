@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventAggregator\EventAggregator.cs" />
-    <Compile Include="EventAggregator\IEvent.cs" />
+    <Compile Include="EventAggregator\Event.cs" />
     <Compile Include="EventAggregator\IEventAggregator.cs" />
     <Compile Include="EventAggregator\IEventHandler.cs" />
     <Compile Include="Factory\GenericFactory.cs" />

@@ -11,7 +11,7 @@ namespace CodeSnippets.EventAggregator
     {
         private readonly Dictionary<Type, List<object>> _handlers = new Dictionary<Type, List<object>>();
 
-        public void Publish<TEvent>(TEvent @event) where TEvent : IEvent
+        public void Publish<TEvent>(TEvent @event) where TEvent : Event
         {
             if (_handlers.TryGetValue(typeof(TEvent), out var handlers))
             {
@@ -22,7 +22,7 @@ namespace CodeSnippets.EventAggregator
             }
         }
 
-        public void Subscribe<TEvent>(IEventHandler<TEvent> handler) where TEvent : IEvent
+        public void Subscribe<TEvent>(Action<TEvent> handler) where TEvent : Event
         {
             if (_handlers.TryGetValue(typeof(TEvent), out var handlers))
             {
@@ -34,7 +34,7 @@ namespace CodeSnippets.EventAggregator
             }
         }
 
-        public void Unsubscribe<TEvent>(IEventHandler<TEvent> handler) where TEvent : IEvent
+        public void Unsubscribe<TEvent>(Action<TEvent> handler) where TEvent : Event
         {
             if (_handlers.TryGetValue(typeof(TEvent), out var handlers))
             {

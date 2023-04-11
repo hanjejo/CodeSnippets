@@ -57,6 +57,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventAggregator\EventAggregatorBasicTest.cs" />
     <Compile Include="EventAggregator\EventAggregatorTest.cs" />
     <Compile Include="Factory\FactoryTest.cs" />
     <Compile Include="Ioc\ContainerTest.cs" />

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodeSnippets.EventAggregator
 {
-    public interface IEvent
+    public class Event
     {
     }
 }

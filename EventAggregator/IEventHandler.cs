@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace CodeSnippets.EventAggregator
 {
-    public interface IEventHandler<in TEvent> where TEvent : IEvent
+    public interface IEventHandler<in TEvent> where TEvent : Event
     {
-        void Handle(TEvent @event);
+        void Handle(TEvent payload);
     }
 }
