@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Sample.LoggingService
+namespace Sample.Logger.DomainLayer
 {
     // 로그 엔티티
     public class LogItem

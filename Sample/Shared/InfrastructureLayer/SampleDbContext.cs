@@ -1,11 +1,6 @@
-﻿using Sample.LoggingService;
+﻿using Sample.Logger.DomainLayer;
 using Sample.Users.DomainLayer;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sample.Shared.InfrastructureLayer
 {

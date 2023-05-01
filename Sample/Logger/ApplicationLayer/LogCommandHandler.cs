@@ -1,13 +1,8 @@
 ﻿using CodeSnippets.EventAggregator;
-using Sample.LoggingService;
+using Sample.Logger.DomainLayer;
 using Sample.Users.DomainLayer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Sample.LogService
+namespace Sample.LogService.ApplicationLayer
 {
     // Logging 서비스 커맨드 핸들러
     // LogService에 접근하는 시나리오를 처리합니다.

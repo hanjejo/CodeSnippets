@@ -1,10 +1,7 @@
-﻿using System;
+﻿using Sample.Logger.DomainLayer;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Sample.LoggingService
+namespace Sample.Logger.ApplicationLayer
 {
     // 로깅 서비스 구현체
     public class LoggingService : ILoggingService
