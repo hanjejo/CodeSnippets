@@ -13,18 +13,20 @@ namespace Sample.UserService
         private readonly IEventAggregator _ea;
         private readonly IUserRepository _userRepository;
 
-        public UserManagementService(IEventAggregator ea,IUserRepository userRepository) {
+        public UserManagementService(IEventAggregator ea, IUserRepository userRepository)
+        {
             _ea = ea;
             _userRepository = userRepository;
         }
-        
+
         public void Create(User user)
         {
             // 유저 추가
             _userRepository.Add(user);
 
             // 유저 생성 알람 발생
-            _ea.Publish<UserCreated>(new UserCreated() {
+            _ea.Publish<UserCreated>(new UserCreated()
+            {
                 UserName = user.Name,
                 Age = user.Age,
                 Time = DateTime.Now

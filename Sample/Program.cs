@@ -43,7 +43,8 @@ namespace Sample
         {
             // UI를 통해서 User를 전달받았다고 가정
             // 유저 생성 
-            _userManagementService.Create(new User() {
+            _userManagementService.Create(new User()
+            {
                 Name = "Test",
                 Age = 20
             });
