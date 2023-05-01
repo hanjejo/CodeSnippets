@@ -1,11 +1,8 @@
 ﻿using CodeSnippets.EventAggregator;
+using Sample.Users.DomainLayer;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Sample.UserService
+namespace Sample.Users.ApplicationLayer
 {
     // 유저 관리 서비스 구현체
     public class UserManagementService : IUserManagementService

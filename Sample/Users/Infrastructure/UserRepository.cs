@@ -1,7 +1,8 @@
-﻿using Sample.Infrastructure;
+﻿using Sample.Shared.InfrastructureLayer;
+using Sample.Users.DomainLayer;
 using System.Linq;
 
-namespace Sample.UserService
+namespace Sample.Users.InfrastructureLayer
 {
     // 유저 리포지토리 구현체
     public class UserRepository : IUserRepository

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sample.UserService
+namespace Sample.Users.DomainLayer
 {
     // 유저 리포지토리 인터페이스
     public interface IUserRepository

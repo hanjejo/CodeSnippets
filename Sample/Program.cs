@@ -1,10 +1,8 @@
 ﻿using CodeSnippets.EventAggregator;
-using Sample.Infrastructure;
-using Sample.UserService;
-using System;
-using System.Configuration;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+using Sample.Shared.InfrastructureLayer;
+using Sample.Users.ApplicationLayer;
+using Sample.Users.DomainLayer;
+using Sample.Users.InfrastructureLayer;
 
 namespace Sample
 {

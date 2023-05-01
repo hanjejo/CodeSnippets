@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sample.UserService
+namespace Sample.Users.DomainLayer
 {
     // 유저 엔티티
     public class User

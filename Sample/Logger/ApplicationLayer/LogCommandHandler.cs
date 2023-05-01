@@ -1,6 +1,6 @@
 ﻿using CodeSnippets.EventAggregator;
 using Sample.LoggingService;
-using Sample.UserService;
+using Sample.Users.DomainLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,5 @@
-﻿using Sample.UserService;
+﻿using Sample.LoggingService;
+using Sample.Users.DomainLayer;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sample.Infrastructure
+namespace Sample.Shared.InfrastructureLayer
 {
     public class SampleDbContext : DbContext
     {
@@ -15,5 +16,6 @@ namespace Sample.Infrastructure
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<LogItem> Logs { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sample.UserService
+namespace Sample.Users.DomainLayer
 {
     // 유저 관리 서비스 인터페이스
     public interface IUserManagementService
