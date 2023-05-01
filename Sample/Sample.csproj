@@ -62,7 +62,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CodeSnippets\CodeSnippets.csproj">
+    <ProjectReference Include="..\CodeSnippets.csproj">
       <Project>{7c43f83e-eb83-448f-ac70-a3311c0d4d84}</Project>
       <Name>CodeSnippets</Name>
     </ProjectReference>

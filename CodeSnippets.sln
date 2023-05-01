@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSnippets", "CodeSnippet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSnippets.Test", "CodeSnippets.Test\CodeSnippets.Test.csproj", "{9FD45D79-F82E-4F73-AA4C-E9721EF2D69C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "..\Sample\Sample.csproj", "{C1AC183C-916D-435D-B912-5BDC5F0229AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "Sample\Sample.csproj", "{C1AC183C-916D-435D-B912-5BDC5F0229AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
