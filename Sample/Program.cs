@@ -1,5 +1,10 @@
 ﻿using CodeSnippets.EventAggregator;
+using Sample.Infrastructure;
 using Sample.UserService;
+using System;
+using System.Configuration;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Sample
 {
@@ -13,6 +18,19 @@ namespace Sample
             // GUI, TCP, Console << 전부 이벤트 기반
             // 아래에서는 이벤트 드리븐 형식으로 처리를 구현함
             var sample = new UserManagementCommandHandler(ea);
+
+            using (var db = new SampleDbContext())
+            {
+                db.Users.Add(new User()
+                {
+                    Name = "Test"
+                });
+
+                db.SaveChanges();
+
+                var aa = db.Users.FirstOrDefault(o => o.Name == "Test");
+                Console.WriteLine(aa.Name);
+            }
             
             // 화면을 통해 유저 생성요청
             sample.CreateUserEvent();
