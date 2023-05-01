@@ -1,30 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Sample.Infrastructure;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sample.UserService
 {
     // 유저 리포지토리 구현체
     public class UserRepository : IUserRepository
     {
-        // 디비 테이블이라 가정
-        List<User> Users = new List<User>();
+        private readonly SampleDbContext _dbContext;
+        public UserRepository(SampleDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         public void Add(User user)
         {
-            Users.Add(user);
+            _dbContext.Users.Add(user);
+            _dbContext.SaveChanges();
         }
 
         public void Delete(User user)
         {
-            Users.Remove(user);
+            _dbContext.Users.Remove(user);
+            _dbContext.SaveChanges();
         }
 
         public User Get(string username)
         {
-            return Users.FirstOrDefault(o => o.Name == username);
+            return _dbContext.Users.FirstOrDefault(o => o.Name == username);
         }
     }
 }

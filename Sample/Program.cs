@@ -19,19 +19,6 @@ namespace Sample
             // 아래에서는 이벤트 드리븐 형식으로 처리를 구현함
             var sample = new UserManagementCommandHandler(ea);
 
-            using (var db = new SampleDbContext())
-            {
-                db.Users.Add(new User()
-                {
-                    Name = "Test"
-                });
-
-                db.SaveChanges();
-
-                var aa = db.Users.FirstOrDefault(o => o.Name == "Test");
-                Console.WriteLine(aa.Name);
-            }
-            
             // 화면을 통해 유저 생성요청
             sample.CreateUserEvent();
 
@@ -49,7 +36,7 @@ namespace Sample
         public UserManagementCommandHandler(IEventAggregator ea)
         {
             _ea = ea;
-            _userManagementService = new UserManagementService(_ea, new UserRepository());
+            _userManagementService = new UserManagementService(_ea, new UserRepository(new SampleDbContext()));
         }
 
         public void CreateUserEvent()
